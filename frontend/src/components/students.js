@@ -8,9 +8,9 @@ function Students(props) {
         return (
           <div key={student.name}>
             <h2>Nome: {student.name}</h2>
+            <p>Genero: {student.gender}</p>
             <p>CPF: {student.cpf}</p>
             <p>Nascimento: {student.birth}</p>
-            <p>Genero: {student.gender}</p>
             <p>Metodo de pagamento: {student.payment}</p>
           </div>
         );
