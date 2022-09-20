@@ -7,11 +7,11 @@ function Students(props) {
       {props.students.map((student) => {
         return (
           <div key={student.name}>
-            <p>{student.cpf}</p>
-            <p>{student.birth}</p>
-            <p>{student.tell}</p>
-            <p>{student.gender}</p>
-            <p>{student.payment}</p>
+            <h2>Nome: {student.name}</h2>
+            <p>CPF: {student.cpf}</p>
+            <p>Nascimento: {student.birth}</p>
+            <p>Genero: {student.gender}</p>
+            <p>Metodo de pagamento: {student.payment}</p>
           </div>
         );
       })}
