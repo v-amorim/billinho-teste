@@ -1,4 +1,4 @@
-class EnrollmentsController < ApplicationController
+class Api::V1::EnrollmentsController < ApplicationController
   before_action :set_enrollment, only: %i[ show update destroy ]
 
   # GET /enrollments

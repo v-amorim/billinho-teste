@@ -1,5 +1,5 @@
-class StudentsController < ApplicationController
-  before_action :set_student, only: %i[ show update destroy ]
+class Api::V1::StudentsController < ApplicationController
+  before_action :set_student, only: %i[show update destroy]
 
   # GET /students
   def index
@@ -39,13 +39,14 @@ class StudentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_student
-      @student = Student.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def student_params
-      params.require(:student).permit(:name, :cpf, :birth, :tell, :gender, :payment)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_student
+    @student = Student.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def student_params
+    params.require(:student).permit(:name, :cpf, :birth, :tell, :gender, :payment)
+  end
 end

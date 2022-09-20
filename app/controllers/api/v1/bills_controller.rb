@@ -1,5 +1,5 @@
-class BillsController < ApplicationController
-  before_action :set_bill, only: %i[ show update destroy ]
+class Api::V1::BillsController < ApplicationController
+  before_action :set_bill, only: %i[show update destroy]
 
   # GET /bills
   def index
@@ -39,13 +39,14 @@ class BillsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_bill
-      @bill = Bill.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def bill_params
-      params.require(:bill).permit(:enrollment_id, :t_amount, :t_due_date, :t_status)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_bill
+    @bill = Bill.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def bill_params
+    params.require(:bill).permit(:enrollment_id, :t_amount, :t_due_date, :t_status)
+  end
 end
