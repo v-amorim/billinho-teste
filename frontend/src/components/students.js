@@ -15,6 +15,32 @@ function Students(props) {
           </div>
         );
       })}
+      {/* <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Genero</th>
+            <th>CPF</th>
+            <th>Nascimento</th>
+            <th>Metodo de Pagamento</th>
+            <th colspan="1"></th>
+          </tr>
+        </thead>
+      </table>
+      {props.students.map((student) => {
+        return (
+          <div key={student.name}>
+            <table>
+              <tbody>
+                <tr>
+                  <td>{student.name}</td>
+                  <td>{student.gender}</td>
+                  <td>{student.cpf}</td>
+                  <td>{student.birth}</td>
+                  <td>{student.payment}</td>
+                </tr>
+              </tbody>
+            </table> */}
     </div>
   );
 }
