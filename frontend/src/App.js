@@ -24,7 +24,6 @@ function App() {
     getStudentAPIData().then((items) => {
       if (mounted) {
         setStudents(items);
-        setInstitutions(items);
       }
     });
     return () => (mounted = false);
