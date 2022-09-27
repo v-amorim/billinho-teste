@@ -4,18 +4,7 @@ function Students(props) {
   return (
     <div>
       <h1>These students are from the API</h1>
-      {props.students.map((student) => {
-        return (
-          <div key={student.name}>
-            <h2>Nome: {student.name}</h2>
-            <p>Genero: {student.gender}</p>
-            <p>CPF: {student.cpf}</p>
-            <p>Nascimento: {student.birth}</p>
-            <p>Metodo de pagamento: {student.payment}</p>
-          </div>
-        );
-      })}
-      {/* <table>
+      <table>
         <thead>
           <tr>
             <th>Nome</th>
@@ -23,7 +12,6 @@ function Students(props) {
             <th>CPF</th>
             <th>Nascimento</th>
             <th>Metodo de Pagamento</th>
-            <th colspan="1"></th>
           </tr>
         </thead>
       </table>
@@ -40,7 +28,10 @@ function Students(props) {
                   <td>{student.payment}</td>
                 </tr>
               </tbody>
-            </table> */}
+            </table>
+          </div>
+        );
+      })}
     </div>
   );
 }
