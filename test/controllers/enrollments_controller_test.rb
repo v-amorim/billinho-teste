@@ -12,7 +12,7 @@ class EnrollmentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create enrollment" do
     assert_difference("Enrollment.count") do
-      post enrollments_url, params: { enrollment: { amount: @enrollment.amount, course: @enrollment.course, due_day: @enrollment.due_day, institution_id: @enrollment.institution_id, quantity_bill: @enrollment.quantity_bill, student_id: @enrollment.student_id } }, as: :json
+      post enrollments_url, params: { enrollment: { amount: @enrollment.amount, course: @enrollment.course, due_day: @enrollment.due_day, institution_id: @enrollment.institution_id, installments: @enrollment.installments, student_id: @enrollment.student_id } }, as: :json
     end
 
     assert_response :created
@@ -24,7 +24,7 @@ class EnrollmentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update enrollment" do
-    patch enrollment_url(@enrollment), params: { enrollment: { amount: @enrollment.amount, course: @enrollment.course, due_day: @enrollment.due_day, institution_id: @enrollment.institution_id, quantity_bill: @enrollment.quantity_bill, student_id: @enrollment.student_id } }, as: :json
+    patch enrollment_url(@enrollment), params: { enrollment: { amount: @enrollment.amount, course: @enrollment.course, due_day: @enrollment.due_day, institution_id: @enrollment.institution_id, installments: @enrollment.installments, student_id: @enrollment.student_id } }, as: :json
     assert_response :success
   end
 

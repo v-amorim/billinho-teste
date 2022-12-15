@@ -12,7 +12,7 @@ class BillsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create bill" do
     assert_difference("Bill.count") do
-      post bills_url, params: { bill: { enrollment_id: @bill.enrollment_id, t_amount: @bill.t_amount, t_due_date: @bill.t_due_date, t_status: @bill.t_status } }, as: :json
+      post bills_url, params: { bill: { enrollment_id: @bill.enrollment_id, amount: @bill.amount, due_day: @bill.due_day, status: @bill.status } }, as: :json
     end
 
     assert_response :created
@@ -24,7 +24,7 @@ class BillsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update bill" do
-    patch bill_url(@bill), params: { bill: { enrollment_id: @bill.enrollment_id, t_amount: @bill.t_amount, t_due_date: @bill.t_due_date, t_status: @bill.t_status } }, as: :json
+    patch bill_url(@bill), params: { bill: { enrollment_id: @bill.enrollment_id, amount: @bill.amount, due_day: @bill.due_day, status: @bill.status } }, as: :json
     assert_response :success
   end
 

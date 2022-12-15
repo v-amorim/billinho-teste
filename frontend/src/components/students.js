@@ -24,8 +24,8 @@ function Students(props) {
                   <td>{student.name}</td>
                   <td>{student.gender}</td>
                   <td>{student.cpf}</td>
-                  <td>{student.birth}</td>
-                  <td>{student.payment}</td>
+                  <td>{student.birthday}</td>
+                  <td>{student.payment_method}</td>
                 </tr>
               </tbody>
             </table>

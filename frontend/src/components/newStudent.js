@@ -3,7 +3,7 @@
 //   const [studentName, setStudentName] = useState("");
 //   const [studentGender, setStudentGender] = useState("");
 //   const [studentCPF, setStudentCPF] = useState("");
-//   const [studentBirth, setStudentBirth] = useState("");
+//   const [studentbirthday, setStudentbirthday] = useState("");
 //   const [studentPayment, setStudentPayment] = useState("");
 
 //   function saveData() {
@@ -11,7 +11,7 @@
 //       studentName,
 //       studentGender,
 //       studentCPF,
-//       studentBirth,
+//       studentbirthday,
 //       studentPayment,
 //     };
 //     // console.warn(data);
@@ -61,16 +61,16 @@
 //       <br /> <br />
 //       <input
 //         type="text"
-//         name="Birth"
-//         value={studentBirth}
+//         name="birthday"
+//         value={studentbirthday}
 //         onChange={(e) => {
-//           setStudentBirth(e.target.value);
+//           setStudentbirthday(e.target.value);
 //         }}
 //       />{" "}
 //       <br /> <br />
 //       <input
 //         type="text"
-//         name="Payment"
+//         name="payment_method"
 //         value={studentPayment}
 //         onChange={(e) => {
 //           setStudentPayment(e.target.value);

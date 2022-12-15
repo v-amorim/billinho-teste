@@ -29,7 +29,7 @@ A API deve ser feita com base nas entidades `Instituição, Aluno e Matrícula`.
 | Data de nascimento            | Data    |                                                                                |
 | Telefone celular              | Inteiro |                                                                                |
 | Gênero                        | Texto   | Não pode ser vazio e tem que estar entre `M ou F`                              |
-| Meio de pagamento das faturas | Texto   | Não pode ser vazio e tem que estar entre `Boleto ou Cartão`                    |
+| Meio de pagamento das faturas | Texto   | Não pode ser vazio e tem que estar entre `boleto ou Cartão`                    |
 
 #### Matrícula
 

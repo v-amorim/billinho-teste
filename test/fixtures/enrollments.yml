@@ -4,7 +4,7 @@ one:
   student: one
   institution: one
   amount: 1.5
-  quantity_bill: 1
+  installments: 1
   due_day: 1
   course: MyString
 
@@ -12,6 +12,6 @@ two:
   student: two
   institution: two
   amount: 1.5
-  quantity_bill: 1
+  installments: 1
   due_day: 1
   course: MyString

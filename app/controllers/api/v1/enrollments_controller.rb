@@ -46,6 +46,6 @@ class Api::V1::EnrollmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def enrollment_params
-      params.require(:enrollment).permit(:student_id, :institution_id, :amount, :quantity_bill, :due_day, :course)
+      params.require(:enrollment).permit(:student_id, :institution_id, :amount, :installments, :due_day, :course)
     end
 end

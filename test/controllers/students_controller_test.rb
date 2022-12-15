@@ -12,7 +12,7 @@ class StudentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create student" do
     assert_difference("Student.count") do
-      post students_url, params: { student: { birth: @student.birth, cpf: @student.cpf, gender: @student.gender, name: @student.name, payment: @student.payment, tell: @student.tell } }, as: :json
+      post students_url, params: { student: { birthday: @student.birthday, cpf: @student.cpf, gender: @student.gender, name: @student.name, payment_method: @student.payment_method } }, as: :json
     end
 
     assert_response :created
@@ -24,7 +24,7 @@ class StudentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update student" do
-    patch student_url(@student), params: { student: { birth: @student.birth, cpf: @student.cpf, gender: @student.gender, name: @student.name, payment: @student.payment, tell: @student.tell } }, as: :json
+    patch student_url(@student), params: { student: { birthday: @student.birthday, cpf: @student.cpf, gender: @student.gender, name: @student.name, payment_method: @student.payment_method } }, as: :json
     assert_response :success
   end
 

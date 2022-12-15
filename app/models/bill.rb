@@ -1,7 +1,7 @@
 class Bill < ApplicationRecord
   belongs_to :enrollment
 
-  validates :t_amount, presence: true
-  validates :t_due_date, presence: true
-  validates :t_status, presence: true, inclusion: { in: %w[Aberta Atrasada Paga] }
+  validates :amount, presence: true
+  validates :due_day, presence: true
+  validates :status, presence: true, inclusion: { in: %w[open pending paid] }
 end

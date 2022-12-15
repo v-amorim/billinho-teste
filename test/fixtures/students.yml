@@ -3,15 +3,13 @@
 one:
   name: MyString
   cpf: MyString
-  birth: 2022-09-20
-  tell: MyString
+  birthday: 2022-09-20
   gender: MyString
-  payment: MyString
+  payment_method: MyString
 
 two:
   name: MyString
   cpf: MyString
-  birth: 2022-09-20
-  tell: MyString
+  birthday: 2022-09-20
   gender: MyString
-  payment: MyString
+  payment_method: MyString
