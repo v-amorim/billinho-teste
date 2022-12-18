@@ -3,11 +3,11 @@
 one:
   enrollment: one
   amount: 9.99
-  due_day: 2022-09-20
+  due_date: 2022-09-20
   status: MyString
 
 two:
   enrollment: two
   amount: 9.99
-  due_day: 2022-09-20
+  due_date: 2022-09-20
   status: MyString

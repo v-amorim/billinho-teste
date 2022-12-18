@@ -51,3 +51,6 @@ end
 
 
 gem "rubocop"
+
+
+gem "kaminari"

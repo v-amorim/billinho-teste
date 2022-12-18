@@ -1,7 +1,7 @@
-Student.create(name: 'Vinicius', cpf: '12345678907', birthday: '07/03/1998', gender: 'M', payment_method: 'boleto')
-Student.create(name: 'Amorim', cpf: '78945612307', birthday: '03/07/2008', gender: 'M', payment_method: 'credit_card')
-Student.create(name: 'Cristina', cpf: '32165498705', birthday: '05/02/2000', gender: 'F', payment_method: 'boleto')
-Student.create(name: 'Joao', cpf: '55544466699', birthday: '24/05/1942', gender: 'M', payment_method: 'boleto')
+Student.create(name: 'Vinicius', cpf: '12345678907', birthday: '07/03/1998', payment_method: 'boleto')
+Student.create(name: 'Amorim', cpf: '78945612307', birthday: '03/07/2008', payment_method: 'credit_card')
+Student.create(name: 'Cristina', cpf: '32165498705', birthday: '05/02/2000', payment_method: 'boleto')
+Student.create(name: 'Joao', cpf: '55544466699', birthday: '24/05/1942', payment_method: 'boleto')
 
 Institution.create(name: 'Cruzeiro do Sul', cnpj: '12345678912345', i_type: 'Universidade')
 Institution.create(name: 'Prisma', cnpj: '789456123456', i_type: 'Creche')

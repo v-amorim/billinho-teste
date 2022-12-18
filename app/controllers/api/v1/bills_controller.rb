@@ -47,6 +47,6 @@ class Api::V1::BillsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def bill_params
-    params.require(:bill).permit(:enrollment_id, :amount, :due_day, :status)
+    params.require(:bill).permit(:enrollment_id, :amount, :due_date, :status)
   end
 end

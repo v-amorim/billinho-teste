@@ -1,16 +1,17 @@
 class Api::V1::EnrollmentsController < ApplicationController
+  include Paginable
   before_action :set_enrollment, only: %i[ show update destroy ]
 
   # GET /enrollments
   def index
-    @enrollments = Enrollment.all
+    @enrollments = Enrollment.page(current_page).per(count)
 
-    render json: @enrollments
+    render json: @enrollments.to_json(include: :bill), meta: meta_attributes(@enrollments), adapter: :json
   end
 
   # GET /enrollments/1
   def show
-    render json: @enrollment
+    render json: @enrollment.to_json(include: :bill)
   end
 
   # POST /enrollments

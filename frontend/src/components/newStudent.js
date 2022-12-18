@@ -1,7 +1,6 @@
 // import React, { useEffect, useState } from "react";
 // function NewStudent() {
 //   const [studentName, setStudentName] = useState("");
-//   const [studentGender, setStudentGender] = useState("");
 //   const [studentCPF, setStudentCPF] = useState("");
 //   const [studentbirthday, setStudentbirthday] = useState("");
 //   const [studentPayment, setStudentPayment] = useState("");
@@ -9,7 +8,6 @@
 //   function saveData() {
 //     let data = {
 //       studentName,
-//       studentGender,
 //       studentCPF,
 //       studentbirthday,
 //       studentPayment,
@@ -41,14 +39,6 @@
 //         }}
 //       />{" "}
 //       <br /> <br />
-//       <input
-//         type="text"
-//         name="Gender"
-//         value={studentGender}
-//         onChange={(e) => {
-//           setStudentGender(e.target.value);
-//         }}
-//       />{" "}
 //       <br /> <br />
 //       <input
 //         type="text"

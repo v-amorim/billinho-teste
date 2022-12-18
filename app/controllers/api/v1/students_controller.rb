@@ -1,11 +1,12 @@
 class Api::V1::StudentsController < ApplicationController
+  include Paginable
   before_action :set_student, only: %i[show update destroy]
 
   # GET /students
   def index
-    @students = Student.all
+    @students = Student.page(current_page).per(count)
 
-    render json: @students
+    render json: @students, meta: meta_attributes(@students), adapter: :json
   end
 
   # GET /students/1
@@ -47,6 +48,6 @@ class Api::V1::StudentsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def student_params
-    params.require(:student).permit(:name, :cpf, :birthday, :gender, :payment_method)
+    params.require(:student).permit(:name, :cpf, :birthday, :payment_method)
   end
 end

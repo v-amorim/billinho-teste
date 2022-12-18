@@ -34,7 +34,7 @@ class Enrollment < ApplicationRecord
                             else
                               Date.new(Date.today.year, month_aux, due_day)
                             end
-      Bill.create(enrollment_id: id, amount: bills_amount, due_day: @private_due_day,
+      Bill.create(enrollment_id: id, amount: bills_amount, due_date: @private_due_day,
                   status: 'open')
       @private_due_day = due_date + month_aux.months
       month_aux += 1

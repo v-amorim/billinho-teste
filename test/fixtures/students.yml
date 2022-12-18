@@ -4,12 +4,10 @@ one:
   name: MyString
   cpf: MyString
   birthday: 2022-09-20
-  gender: MyString
   payment_method: MyString
 
 two:
   name: MyString
   cpf: MyString
   birthday: 2022-09-20
-  gender: MyString
   payment_method: MyString

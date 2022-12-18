@@ -13,9 +13,9 @@
 ActiveRecord::Schema[7.0].define(version: 2022_09_20_161303) do
   create_table "bills", force: :cascade do |t|
     t.integer "enrollment_id", null: false
-    t.decimal "t_amount", null: false
-    t.date "t_due_date", null: false
-    t.string "t_status", null: false
+    t.decimal "amount", null: false
+    t.date "due_date", null: false
+    t.string "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["enrollment_id"], name: "index_bills_on_enrollment_id"
@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_20_161303) do
     t.integer "student_id", null: false
     t.integer "institution_id", null: false
     t.float "amount", null: false
-    t.integer "quantity_bill", null: false
+    t.integer "installments", null: false
     t.integer "due_day", null: false
     t.string "course", null: false
     t.datetime "created_at", null: false
@@ -47,10 +47,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_20_161303) do
   create_table "students", force: :cascade do |t|
     t.string "name", null: false
     t.string "cpf", null: false
-    t.date "birth"
-    t.string "tell"
-    t.string "gender", null: false
-    t.string "payment", null: false
+    t.date "birthday"
+    t.string "payment_method", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cpf"], name: "index_students_on_cpf", unique: true

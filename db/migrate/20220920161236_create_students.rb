@@ -4,7 +4,6 @@ class CreateStudents < ActiveRecord::Migration[7.0]
       t.string :name, index: { unique: true }, null: false
       t.string :cpf, index: { unique: true }, null: false
       t.date :birthday
-      t.string :gender, null: false
       t.string :payment_method, null: false
 
       t.timestamps
