@@ -1,60 +1,303 @@
-# Projeto Billinho
+Nessa etapa do processo seletivo vamos precisar que você crie uma API para gerenciar as mensalidades dos alunos. Bora lá?
 
-Clique [aqui](docs/getting_started.md) para ver como instalar e configurar o projeto base.
+## Requisitos da API
 
-O projeto Billinho tem como objetivo simular uma API de gerenciamento das mensalidades pagas pelos alunos à instituição de ensino que ele estuda.
+- O projeto deve ser construído usando alguma das seguintes linguagens `Ruby`, `Elixir` ou `NodeJS`. Podendo utilizar o framework que você preferir (Ex: Ruby on Rails, Phoenix, NestJS, etc).
+- Os modelos devem ser respeitados e todos os campos, validações e restrições devem existir. Fique a vontade para adicionar novos campos ou validações se necessário.
+- Os dados da API devem ser salvos em um banco de dados `PostgreSQL`.
+- Todas as rotas da API devem receber e responder no formato `JSON`.
+- Seu projeto deve ter pelo menos as rotas descritas abaixo. Fique a vontade para adicionar novas rotas e funcionalidades, mas tenha cuidado em sempre manter a consistência dos dados no banco.
 
-## Introdução
+## Modelos
 
-A empresa Quero Educação está desenvolvendo um sistema para ajudar os alunos a gerenciar suas mensalidades! Esse sistema está quase pronto, mas ainda não foi implementada a API principal dele, e cabe a você ajudar a Quero a bater essa meta e desenvolver uma API em Ruby on Rails.
+Os modelos que vamos precisar nessa API são os seguintes:
 
-## Entidades
+- Student (Aluno)
+  - name: Nome do aluno
+  - cpf: CPF do aluno
+  - bithdate: Data de nascimento do aluno
+  - payment_method: Meio de pagamento do aluno (cartão de crédito ou boleto)
+- Enrollment (Matrícula)
+  - amount: Valor total em centavos da matrícula
+  - installments: Quantidade de mensalidades da matrícula
+  - due_day: Dia de vencimento da matrícula
+- Bill (Mensalidade)
+  - amount: Valor da mensalidade em centavos
+  - due_date: Data de vencimento da mensalidade
+  - status: Status da mensalidade (Aberta, atrasada ou paga)
 
-A API deve ser feita com base nas entidades `Instituição, Aluno e Matrícula`.
+Onde um aluno pode ter várias matrículas e uma matrícula tem várias mensalidades.
 
-#### Instituição de Ensino
+## Validações dos modelos
 
-| Campo | Tipo  | Restrições                                               |
-| ----- | ----- | -------------------------------------------------------- |
-| Nome  | Texto | Não pode estar vazio e deve ser único                    |
-| CNPJ  | Texto | Deve conter apenas caracteres numéricos e deve ser único |
-| Tipo  | Texto | `Universidade, Escola ou Creche`                         |
+### Student
 
-#### Aluno
+| Campo          | Tipo   | Validações                                                                   |
+| -------------- | ------ | ---------------------------------------------------------------------------- |
+| name           | string | Não pode estar vazio                                                         |
+| cpf            | string | Tem que ser um CPF válido e deve ser único                                   |
+| birthdate      | date   | Tem que ser uma data válida se presente, deve aceitar ser vazio              |
+| payment_method | string | Tem que ser um dos seguintes: `credit_card` ou `boleto` e não pode ser vazio |
 
-| Campo                         | Tipo    | Restrições                                                                     |
-| ----------------------------- | ------- | ------------------------------------------------------------------------------ |
-| Nome                          | Texto   | Deve ser único e não pode estar vazio                                          |
-| CPF                           | Texto   | Deve conter apenas caracteres numéricos, deve ser único e não pode estar vazio |
-| Data de nascimento            | Data    |                                                                                |
-| Telefone celular              | Inteiro |                                                                                |
-| Gênero                        | Texto   | Não pode ser vazio e tem que estar entre `M ou F`                              |
-| Meio de pagamento das faturas | Texto   | Não pode ser vazio e tem que estar entre `boleto ou Cartão`                    |
+### Enrollment
 
-#### Matrícula
+| Campo        | Tipo    | Validações                                                   |
+| ------------ | ------- | ------------------------------------------------------------ |
+| amount       | integer | Não pode estar vazio e tem que ser maior que 0               |
+| installments | integer | Não pode estar vazio e tem que ser maior que 1               |
+| due_day      | integer | Não pode estar vazio e tem que ser um dia válido (de 1 a 31) |
 
-| Campo                         | Tipo              | Restrições           |
-| ----------------------------- | ----------------- | -------------------- |
-| Valor total do curso em reais | Decimal           | Não pode estar vazio |
-| Quantidade de faturas         | Inteiro           | Não pode estar vazio |
-| Dia de vencimento das faturas | Inteiro           | Não pode estar vazio |
-| ID da Instituição             | Chave Estrangeira | Não pode estar vazio |
-| ID do aluno                   | Chave Estrangeira | Não pode estar vazio |
+### Bill
 
-## Requisitos
+| Campo    | Tipo    | Validações                                                                                                      |
+| -------- | ------- | --------------------------------------------------------------------------------------------------------------- |
+| amount   | integer | Não pode estar vazio e tem que ser maior que 0                                                                  |
+| due_date | date    | Não pode estar vazio e tem que ser uma data valida                                                              |
+| status   | string  | Tem que ser um dos seguintes: `open`, `pending` ou `paid`, sendo o valor default: `open` e não pode estar vazio |
 
-Dadas as entidades descritas acima, suas tarefas são:
+## Restrições
 
-- Criar a modelagem na aplicação e armazená-las num banco de dados;
-- Na criação dos registros os dados devem ser validados de acordo com o especificado e armazenados no banco de dados;
-- Expor uma API que permita:
-  - Receber e responder requisições no formato JSON;
-  - Listar e criar as entidades `Aluno, Instituição e Matrícula`.
+- A soma de todas as bills devem ser igual ao valor da enrollment:
 
-#### Observações
+```ruby
+  enrollment.amount == enrollment.bills.sum('amount') # true
+```
 
-- Não é necessário criar telas para a aplicação.
-- Desenvolva sua aplicação utilizando um repositório do GitHub e nos envie o link do repo ao finalizar o projeto.
-- Demonstrar, da maneira que você achar melhor que seu projeto funciona como especificado.
+- A soma da quantidade de bills deve ser igual ao valor do campo `installments` da enrollment:
 
-Esse documento contém os requisitos mínimos, mas fique a vontade para adicionar funcionalidades extras na API que você ache relevante!
+```ruby
+  enrollment.installments == enrollment.bills.count # true
+```
+
+## Rotas
+
+### Listagem de Alunos
+
+Essa rota deve retornar uma lista paginada de alunos com os dados formatados e recebendo como parâmetro o número da página e o total de itens por página:
+
+#### Request
+
+```
+GET /students
+```
+
+```json
+{
+  "page": 1,
+  "count": 3
+}
+```
+
+#### Response
+
+```json
+{
+  "page": 1,
+  "items": [
+    {
+      "id": 1,
+      "name": "Aluno teste",
+      "cpf": "502.757.480-06",
+      "birthdate": "23/10/2000",
+      "payment_method": "Cartão de crédito"
+    },
+    {...},
+    {...}
+  ]
+}
+```
+
+### Criação de Alunos
+
+Essa rota deve retornar o id do aluno criado:
+
+#### Request
+
+```
+POST /students
+```
+
+```json
+{
+  "name": "Novo aluno",
+  "cpf": "038.347.910-08",
+  "birthdate": "23/10/1996",
+  "payment_method": "boleto"
+}
+```
+
+#### Response
+
+```json
+{
+  "id": 2
+}
+```
+
+### Listagem de Matrículas
+
+Essa rota deve retornar uma lista paginada de matrículas e todas as mensalidades de cada matrícula, recebendo como parâmetro o número da página e o total de itens por página:
+
+#### Request
+
+```
+GET /enrollments
+```
+
+```json
+{
+  "page": 1,
+  "count": 3
+}
+```
+
+#### Response
+
+```json
+{
+  "page": 1,
+  "items": [
+    {
+      "id": 1,
+      "student_id": 1,
+      "amount": 1200000,
+      "installments": 3,
+      "due_day": 5,
+      "bills": [
+        {
+          "id": 1,
+          "due_date": "05/03/2021",
+          "status": "open",
+          "amount": 400000
+        }
+        {
+          "id": 2,
+          "due_date": "05/04/2021",
+          "status": "open",
+          "amount": 400000
+        },
+        {
+          "id": 3,
+          "due_date": "05/05/2021",
+          "status": "open",
+          "amount": 400000
+        }
+      ]
+    },
+    {...},
+    {...}
+  ]
+}
+```
+
+### Criação de Matrículas
+
+Ao criar a matrícula, suas mensalidades devem ser geradas automáticamente, seguindo as seguintes regras:
+
+- A quantidade de mensalidades devem ser iguais ao campo `installments` da matrícula
+- O valor de cada mensalidade (`amount`) deve ser calculado a partir do valor da matrícula (`amount`) dividido pela quantidade de `installments` da matrícula
+- A data de vencimento das mensalidades devem ser subsequentes a data atual, sempre havendo uma e apenas uma mensalidade para cada mês
+  - Caso o dia de vencimento da matrícula seja um dia menor que o dia atual a primeira mensalidade deve começar no mês seguinte, caso seja maior ou igual deve começar no mês atual
+- Por essa rota ser uma rota crítica para a API, precisamos que tenha uma autenticação basic nela, com o usuário: `admin_ops` e a senha `billing`
+
+A rota deve retornar a matricula e suas mensalidades. Aqui vamos deixar dois exemplos, o primeiro com a data atual sendo `01/03/2021` e o segundo sendo `10/03/2021`.
+
+#### Request (dia atual 01/03/2021)
+
+```
+POST /enrollments
+```
+
+```json
+{
+  "amount": 1200000,
+  "installments": 3,
+  "due_day": 5,
+  "student_id": 1
+}
+```
+
+#### Response (dia atual 01/03/2021)
+
+```json
+{
+  "id": 1,
+  "student_id": 1,
+  "amount": 1200000,
+  "installments": 3,
+  "due_day": 5,
+  "bills": [
+    {
+      "id": 1,
+      "due_date": "05/03/2021",
+      "status": "open",
+      "amount": 400000
+    }
+    {
+      "id": 2,
+      "due_date": "05/04/2021",
+      "status": "open",
+      "amount": 400000
+    },
+    {
+      "id": 3,
+      "due_date": "05/05/2021",
+      "status": "open",
+      "amount": 400000
+    }
+  ]
+}
+```
+
+#### Request (dia atual 10/03/2021)
+
+```
+POST /enrollments
+```
+
+```json
+{
+  "amount": 1200000,
+  "installments": 3,
+  "due_day": 5,
+  "student_id": 1
+}
+```
+
+#### Response (dia atual 10/03/2021)
+
+```json
+{
+  "id": 1,
+  "student_id": 1,
+  "amount": 1200000,
+  "installments": 3,
+  "due_day": 5,
+  "bills": [
+    {
+      "id": 1,
+      "due_date": "05/04/2021",
+      "status": "open",
+      "amount": 400000
+    }
+    {
+      "id": 2,
+      "due_date": "05/05/2021",
+      "status": "open",
+      "amount": 400000
+    },
+    {
+      "id": 3,
+      "due_date": "05/06/2021",
+      "status": "open",
+      "amount": 400000
+    }
+  ]
+}
+```
+
+## Considerações finais
+
+- Este é um teste de back-end! Não é necessário fazer telas, caso você seja um front e te enviaram esse teste, avise sua recrutadora!
+- Desenvolva seu projeto utilizando um repositório do GitHub e nos envie o link do repo ao finalizar o desafio
+- Demonstre da maneira que achar adequado que a aplicação funciona como especificado
